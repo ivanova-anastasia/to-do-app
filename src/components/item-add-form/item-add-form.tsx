@@ -1,8 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
+import './item-add-form.css';
+
 const ItemAddForm = (): JSX.Element => {
-  const [inputValue, updateInputValue] = useState('');
+  const [inputValue, updateInputValue] = useState<string>('');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -14,7 +16,7 @@ const ItemAddForm = (): JSX.Element => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form className='to-do-form' onSubmit={handleSubmit}>
       <Form.Floating className='mb-3'>
         <Form.Control
           id='floatingInputCustom'
@@ -26,7 +28,7 @@ const ItemAddForm = (): JSX.Element => {
         />
         <label htmlFor='floatingInputCustom'>Enter To-Do item...</label>
       </Form.Floating>
-      <Button variant='primary' type='submit'>
+      <Button variant='outline-primary' type='submit'>
         Submit
       </Button>
     </Form>
