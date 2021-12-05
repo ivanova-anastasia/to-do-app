@@ -1,7 +1,12 @@
 import React from 'react';
+import List from '../list';
 
 const ListPage = (): JSX.Element => {
-  return <></>;
+  return (
+    <>
+      <List />
+    </>
+  );
 };
 
 export default ListPage;

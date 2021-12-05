@@ -1,0 +1,4 @@
+#list-item .list-item__input_disabled {
+  background-color: transparent;
+  border: none;
+}
