@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { addToDoItem } from './../../redux/action-creators';
+import { connect } from 'react-redux';
 
 import './item-add-form.css';
 
-const ItemAddForm = (): JSX.Element => {
+type ItemAddFormProps = {
+  addToDoItem: (description: string) => void;
+};
+
+const ItemAddForm = ({ addToDoItem }: ItemAddFormProps): JSX.Element => {
   const [inputValue, updateInputValue] = useState<string>('');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    addToDoItem(inputValue);
     updateInputValue('');
   };
 
@@ -35,4 +42,4 @@ const ItemAddForm = (): JSX.Element => {
   );
 };
 
-export default ItemAddForm;
+export default connect(null, { addToDoItem })(ItemAddForm);

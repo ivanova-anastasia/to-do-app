@@ -4,7 +4,17 @@ import { MdModeEdit, MdDeleteOutline, MdDone, MdCancel } from 'react-icons/md';
 
 import './list-item.css';
 
-const ListItem = (): JSX.Element => {
+type ListItemProps = {
+  todo: IToDoItem;
+  deleteToDoItem: (item: IToDoItem) => void;
+  editToDoItem: (item: IToDoItem, newDescription: string) => void;
+};
+
+const ListItem = ({
+  todo,
+  deleteToDoItem,
+  editToDoItem,
+}: ListItemProps): JSX.Element => {
   const [updatedValue, setUpdatedValue] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
@@ -18,6 +28,9 @@ const ListItem = (): JSX.Element => {
   };
 
   const saveUpdatedValue = () => {
+    if (updatedValue !== todo.description && updatedValue?.trim()) {
+      editToDoItem(todo, updatedValue);
+    }
     disableEditing();
   };
 
@@ -32,7 +45,7 @@ const ListItem = (): JSX.Element => {
   );
 
   const deleteButton = (
-    <Button variant='outline-danger'>
+    <Button variant='outline-danger' onClick={() => deleteToDoItem(todo)}>
       <MdDeleteOutline />
     </Button>
   );
@@ -62,7 +75,7 @@ const ListItem = (): JSX.Element => {
           className={
             isEditing ? 'list-item__input' : 'list-item__input_disabled'
           }
-          value={updatedValue ? updatedValue : 'mock data'}
+          value={updatedValue === null ? todo.description : updatedValue}
           onChange={handleUpdateInput}
         />
         {isEditing ? (
